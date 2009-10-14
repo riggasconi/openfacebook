@@ -1,5 +1,8 @@
 # coding: utf-8
 
+# author: Sebastiano Scròfina (riggasconi@kaaaki.com)
+# this code is released under the Ruby License
+
 require 'rubygems'
 require 'mechanize' 
 
