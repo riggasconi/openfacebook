@@ -1,14 +1,16 @@
 # author: Sebastiano Scròfina (riggasconi@kaaaki.com)
 # this code is released under the Ruby License
 
+require 'openfacebook' # is there a better way ?
+
 Given /^the scene Default Configuration$/ do
-  pending
+  #
 end
 
-When /^I fill in "([^\"]*)"$/ do |arg1|
-  pending
+When /^I feed openfacebook with "([^\"]*)"$/ do |url|
+  @results= friends(url)
 end
 
 Then /^I should get 8 random friends$/ do
-  pending
+  @results.size.should == 8
 end

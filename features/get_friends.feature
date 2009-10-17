@@ -8,5 +8,5 @@ Feature: Get Friends
   
 	Scenario: Get Friends of Anita Briem
 		Given the scene Default Configuration
-		When I fill in "http://www.facebook.com/people/Anita-Briem/616302322"
+		When I feed openfacebook with "http://www.facebook.com/people/Anita-Briem/616302322"
 		Then I should get 8 random friends
