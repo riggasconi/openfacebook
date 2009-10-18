@@ -3,10 +3,6 @@
 
 require 'openfacebook' # is there a better way ?
 
-Given /^the scene Default Configuration$/ do
-  #
-end
-
 When /^I feed openfacebook with "([^\"]*)"$/ do |url|
   @results= friends(url)
 end
