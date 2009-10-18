@@ -7,3 +7,4 @@ Scenario: Get Friends of Anita Briem
 		
 		When I feed openfacebook with "riggasconi"
 		Then I should get 8 random friends
+
