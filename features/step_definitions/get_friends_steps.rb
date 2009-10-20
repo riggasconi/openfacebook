@@ -3,8 +3,8 @@
 
 require 'openfacebook' # is there a better way ?
 
-When /^I feed openfacebook with "([^\"]*)"$/ do |url|
-  @results= friends(url)
+When /^I feed openfacebook with "([^\"]*)" as "([^\"]*)"$/ do |content, type|
+  @results= friends(type.to_sym => content)
 end
 
 Then /^I should get 8 random friends$/ do

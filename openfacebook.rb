@@ -28,6 +28,8 @@ end
 def make_url_from(string)
   if string.match(/http:\/\//) # assuming it's a valid facebook public page URL
     return string
+  #elsif string.match
+  #  28245172588
   else # assuming it's a vanity name
     return "http://www.facebook.com/#{string}"
   end
