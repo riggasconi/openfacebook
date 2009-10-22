@@ -1,10 +1,15 @@
 # author: Sebastiano Scròfina (riggasconi@kaaaki.com)
 # this code is released under the Ruby License
 
-Scenario: Get Friends of Anita Briem
-		When I feed openfacebook with "http://www.facebook.com/people/Anita-Briem/616302322" as "URL"
+Scenario: Get Friends of Sebastiano
+
+		When I feed openfacebook with "http://www.facebook.com/people/Sebastiano-Scr%F2fina/560953853" as "url"
 		Then I should get 8 random friends
+		And I should get "560953853" as the returned ID
 		
-		When I feed openfacebook with "riggasconi" as "vanity name"
+		When I feed openfacebook with "riggasconi" as "vanity"
 		Then I should get 8 random friends
+		And I should get "560953853" as the returned ID
+
+
 

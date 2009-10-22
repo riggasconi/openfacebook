@@ -23,21 +23,28 @@ def extract_friends_for(page)
   friends_urls.uniq #xpath issue
 end
 
-# take a URL (NOTE: need to check validity) or a facebook vanity name
+# take a a facebook vanity name
 # and return a valid facebook public page URL
-def make_url_from(string)
-  if string.match(/http:\/\//) # assuming it's a valid facebook public page URL
-    return string
-  #elsif string.match
-  #  28245172588
-  else # assuming it's a vanity name
-    return "http://www.facebook.com/#{string}"
-  end
+def make_url_from_vanity(string)
+  "http://www.facebook.com/#{string}"
+end
+
+# take a a facebook ID
+# and return a valid facebook public page URL
+def make_url_from_id(string)
+  "http://www.facebook.com/profile.php?id=#{string}"
+end
+
+# take a hash (where there's either a facebook ID, a vanity name, or a URL)
+# and return a valid facebook public page URL
+def make_url(hash)
+  return make_url_from_vanity(hash[:vanity]) if hash[:vanity]
+  return hash[:url] if hash[:url]
 end
 
 # take a URL string and return an array of friends URLs
-def friends(url_or_vanity_name)
-  url= make_url_from(url_or_vanity_name)
+def get(hash)
+  url= make_url(hash)
   page= open_page(url)
-  extract_friends_for(page)
+  persona= {:friends => extract_friends_for(page), :id => 560953853}
 end
