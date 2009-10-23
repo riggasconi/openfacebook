@@ -11,5 +11,8 @@ Scenario: Get Friends of Sebastiano
 		Then I should get 8 random friends
 		And I should get "560953853" as the returned ID
 
+		When I feed openfacebook with "560953853" as "id"
+		Then I should get 8 random friends
+		And I should get "560953853" as the returned ID
 
 
