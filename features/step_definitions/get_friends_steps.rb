@@ -1,3 +1,4 @@
+# coding: utf-8
 # author: Sebastiano Scròfina (riggasconi@kaaaki.com)
 # this code is released under the Ruby License
 
@@ -11,12 +12,5 @@ When /^I feed openfacebook with "([^\"]*)" as "([^\"]*)"$/ do |content, type|
 end
 
 Then /^I should get 8 random friends$/ do
-  @profile.scrape_friends
   @profile.friends.size.should == 8
 end
-
-Then /^I should get "([^\"]*)" as the returned "([^\"]*)"$/ do |content, type|
-  eval("@profile." + type) == content # is method #==() the best fit ?
-end
-
-
