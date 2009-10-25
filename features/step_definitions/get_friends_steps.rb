@@ -1,18 +1,22 @@
 # author: Sebastiano Scròfina (riggasconi@kaaaki.com)
 # this code is released under the Ruby License
 
-require 'openfacebook' # is there a better way ?
+# adding the relative lib/ path
+$: << File.expand_path(File.dirname('get_friends_steps.rb') + "../../lib")
+
+require 'openfacebook'
 
 When /^I feed openfacebook with "([^\"]*)" as "([^\"]*)"$/ do |content, type|
-  @results= get(type.to_sym => content)
+  @profile= FacebookProfile.new(type.to_sym => content)
 end
 
 Then /^I should get 8 random friends$/ do
-  @results[:friends].size.should == 8
+  @profile.scrape_friends
+  @profile.friends.size.should == 8
 end
 
-Then /^I should get "([^\"]*)" as the returned ID$/ do |id|
-  @results[:id].should == id.to_i
+Then /^I should get "([^\"]*)" as the returned "([^\"]*)"$/ do |content, type|
+  eval("@profile." + type) == content # is method #==() the best fit ?
 end
 
 
