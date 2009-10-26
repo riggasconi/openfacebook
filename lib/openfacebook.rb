@@ -55,8 +55,8 @@ class FacebookProfile
   private
 
   def scrape_friends
-    self.get_page.friends_urls.each do |u|
-      f= FacebookProfile.new(:url=>u)
+    self.get_page.friends_data.each do |u,i,v,n|
+      f= FacebookProfile.new(:url=>u, :fbid=>i,:vanity=>v,:name=>n)
       @friends << f
     end
   end
@@ -88,13 +88,13 @@ class FacebookPage
     [fbid, vanity, name, url]
   end
   
-  # extract friends Nokogiri objects from the Nokogiri page object
-  def friends_urls
-    friends_urls= []
-    self.mechanize.page.search(%|a[@rel="friend"]|).each do |e| 
-      friends_urls << extract_url(e)
+  def friends_data
+    friends_data= []
+    self.mechanize.page.search(%|a[@rel="friend"]|).each do |f| 
+      friends_data << [extract_url(f), extract_fbid(f), extract_vanity(f), extract_name(f)]
     end
-    friends_urls.uniq # needs .uniq because links are coupled in facebook page
+    friends_data.uniq # needs .uniq because links are coupled in facebook page
+    friends_data.delete_if {|f| f[1]==nil}
   end
   
   def url
@@ -125,6 +125,33 @@ class FacebookPage
   # extract the URL as string from the Nokogiri object
   def extract_url(element)
     element.attributes['href'].to_s
+  end
+  
+  # extract the name as string from the Nokogiri object
+  def extract_name(element)
+    element.attributes['title'].to_s
+  end
+  
+  # extract the ID as string from the Nokogiri object
+  def extract_fbid(element)
+    begin
+      result= element.search(%|[@alt]|).attr('src').match(/q\d*_/).to_s.sub('q','').sub('_','')
+    rescue
+      result=nil
+    end
+    return result
+  end
+
+  # test thouroughly: some issues from facebook
+  # extract the vanity name as string from the Nokogiri object
+  def extract_vanity(element)
+    result=nil
+    path= element.attributes['href'].to_s.sub!(/.*facebook.com\//,'')
+    if path
+      result= path if not path.match(/\//)
+      result= nil if path.match(/\//)
+    end
+    return result
   end
   
 end
