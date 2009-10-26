@@ -30,7 +30,11 @@ Cucumber 0.4.0
   friend= rigga.friends[0]
 
   friend.get
-  friend.vanity
+  friend.name
+
+== Author
+
+ Sebastiano Scròfina (http://www.riggasconi.com)
 
 == License
 

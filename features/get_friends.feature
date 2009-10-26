@@ -27,11 +27,9 @@ Scenario: Get friends
 		And I should get "Sebastiano Scròfina" as name
 		
 		# a user who joined a network
-		When I feed openfacebook with "andrealamesa" as "vanity"
+		When I feed openfacebook with "stefano" as "vanity"
 		Then I should get 8 random friends
 		And I should get "713625649" as fbid
 		And I should get "stefano" as vanity
 		And I should get "http://www.facebook.com/stefano" as url
 		And I should get "Stefano Bernardi" as name
-		
-Scenario: Fail to get friends
