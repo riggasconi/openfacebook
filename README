@@ -1,21 +1,22 @@
-OpenFacebook
-=======
+= OpenFacebook
  
 Openfacebook is a clean API to access Facebook's social graph without the need to login
  
-Source code:
+== Source code:
   git://github.com/riggasconi/openfacebook.git
  
-Wiki:
+== Wiki:
   http://github.com/riggasconi/openfacebook/wikis
  
-Issue Tracking:
+== Issue Tracking:
   http://riggasconi.lighthouseapp.com
 
-Installation:
-  $ sudo gem install cucumber 
-  (required cucumber version is 0.4.0)
+== Requirements:
+Cucumber 0.4.0
 
-How to start the tests:
-	$ cucumber
-	
+== Test:
+  $ cucumber
+
+== Installation:
+  $ sudo gem install cucumber 
+

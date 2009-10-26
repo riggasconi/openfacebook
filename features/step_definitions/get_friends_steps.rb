@@ -13,4 +13,5 @@ end
 
 Then /^I should get 8 random friends$/ do
   @profile.friends.size.should == 8
+  @profile.friends.size.should_not == 0
 end
