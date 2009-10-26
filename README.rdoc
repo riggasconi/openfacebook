@@ -1,22 +1,58 @@
 = OpenFacebook
- 
+
+== Description
+
 Openfacebook is a clean API to access Facebook's social graph without the need to login
  
 == Source code:
   git://github.com/riggasconi/openfacebook.git
  
 == Wiki:
-  http://github.com/riggasconi/openfacebook/wikis
+http://github.com/riggasconi/openfacebook/wikis
  
 == Issue Tracking:
-  http://riggasconi.lighthouseapp.com
+http://riggasconi.lighthouseapp.com
 
 == Requirements:
+Ruby 1.8.6
 Cucumber 0.4.0
 
 == Test:
   $ cucumber
 
-== Installation:
-  $ sudo gem install cucumber 
+== Example:
+  rigga= FacebookProfile.new(:vanity=>'riggasconi').get
+  
+  rigga.fbid
+  rigga.name
+  
+  rigga.friends
+  friend= rigga.friends[0]
 
+  friend.get
+  friend.vanity
+
+== License
+
+(The Ruby License)
+
+Copyright (c) 2009 Sebastiano Scròfina http://www.riggasconi.com
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

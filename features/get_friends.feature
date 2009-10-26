@@ -1,5 +1,5 @@
 # coding: utf-8
-# author: Sebastiano Scròfina (riggasconi@kaaaki.com)
+# author: Sebastiano Scròfina (http://www.riggasconi.com)
 # this code is released under the Ruby License
 
 Scenario: Get friends
@@ -29,9 +29,9 @@ Scenario: Get friends
 		# a user who joined a network
 		When I feed openfacebook with "andrealamesa" as "vanity"
 		Then I should get 8 random friends
-		And I should get "??????" as fbid
-		And I should get "andrealamesa" as vanity
-		And I should get "http://www.facebook.com/andrealamesa" as url
-		And I should get "Andrea La Mesa" as name
+		And I should get "713625649" as fbid
+		And I should get "stefano" as vanity
+		And I should get "http://www.facebook.com/stefano" as url
+		And I should get "Stefano Bernardi" as name
 		
 Scenario: Fail to get friends

@@ -1,5 +1,5 @@
 # coding: utf-8
-# author: Sebastiano Scròfina (riggasconi@kaaaki.com)
+# author: Sebastiano Scròfina (http://www.riggasconi.com)
 # this code is released under the Ruby License
 
 module Urlable
