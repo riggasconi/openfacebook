@@ -33,7 +33,7 @@ Cucumber 0.4.0
   friend.get
   friend.name
 
-  a_foaf= rigga.friend[0].friends[0].get
+  a_foaf= rigga.friends[0].friends[0].get
   a_foaf.url
   a_foaf.fbid
 
