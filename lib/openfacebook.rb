@@ -21,11 +21,16 @@ module Urlable
   
 end
 
-class FacebookProfile
+class Profile
+end
+
+class TwitterProfile < Profile
+end
+
+class FacebookProfile < Profile
   include Urlable
   
   attr_accessor :url, :fbid, :vanity, :name
-  attr_writer :friends
   
   def initialize(hash)
     self.url= hash[:url]
@@ -34,16 +39,76 @@ class FacebookProfile
     self.name= hash[:name]
   end
   
+  def trust(friend)
+    result=0
+    a_friends= self.friends
+    #puts a_friends.size
+    b_friends= friend.friends
+    #puts b_friends.size
+    a_friends.each do |ak,av|
+      b_friends.each do |bk,bv|
+        result += 1 if av.fbid == bv.fbid
+      end
+    end
+    #puts result
+    (100.0/self.friends.size*result)
+  end
+  
+  def twitter
+    tw_url= "http://www.twitter.com/#{self.vanity}"
+    m= WWW::Mechanize.new
+    result=nil
+    begin
+      m.get(tw_url)
+      if m.page
+        result= tw_url if m.page.title.match(/#{self.name}/)
+      else
+        result= nil
+      end
+    rescue
+      result= nil
+    end
+    result || false
+  end
+  
+  def all_twitter_friends
+    result= []
+    threads= []
+    self.friends.each do |friend|
+      t= Thread.new do
+        puts "chechking if #{friend.name} is on Twitter"
+        if friend.twitter
+          puts "Found! How cool :)"
+          result << friend.twitter
+        end
+      end#Thread
+      threads << t
+    end
+    threads.each {|t| t.join}
+    result.uniq
+  end
+  
+  def friends
+    @friends= self.get_friends unless @friends
+    @friends
+  end
+  
+  def get_friends
+    result= {}; threads= []
+    90.times do
+      t= Thread.new do
+        scrape_friends.each {|scraped_friend| result[scraped_friend.name]= scraped_friend unless result[scraped_friend.name]}
+      end
+      threads << t
+    end
+    threads.each {|t| t.join}
+    result
+  end
+  
   # overwrites self attributes (dangerous)
   def get
     self.fbid, self.vanity, self.name, self.url = self.get_page.personal_info
     return self
-  end
-  
-  def friends
-    @friends= []
-    scrape_friends
-    @friends
   end
   
   # return a scraped FacebookPage object
@@ -55,10 +120,12 @@ class FacebookProfile
   private
 
   def scrape_friends
+    result= []
     self.get_page.friends_data.each do |u,i,v,n|
       f= FacebookProfile.new(:url=>u, :fbid=>i,:vanity=>v,:name=>n)
-      @friends << f
+      result << f
     end
+    result
   end
 
   
@@ -75,6 +142,8 @@ class FacebookPage
   def initialize(url)
     self.url= url
   end
+  
+
   
   def scraped
     m= WWW::Mechanize.new
@@ -142,7 +211,7 @@ class FacebookPage
     return result
   end
 
-  # test thouroughly: some issues from facebook
+  # test thouroughly: there are some issues in facebook's responses
   # extract the vanity name as string from the Nokogiri object
   def extract_vanity(element)
     result=nil

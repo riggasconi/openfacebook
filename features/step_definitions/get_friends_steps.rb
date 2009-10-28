@@ -30,4 +30,3 @@ end
 Then /^I should get "([^\"]*)" as name$/ do |arg1|
   @profile.name.should == arg1
 end
-
