@@ -41,7 +41,7 @@ Cucumber 0.4.0
   rigga.url
   rigga.fbid
   
-  # get the list of (almost all) friends
+  # get a list of (some) friends
   rigga.friends # takes a while
   a_friend= rigga.friends[0]
   a_foaf= rigga.friends[0].friends[0]
