@@ -16,6 +16,7 @@ http://riggasconi.lighthouseapp.com
 == Requirements:
 Ruby 1.8.6
 Cucumber 0.4.0
+Mechanize 0.9.3
 
 == Test:
   $ cucumber

@@ -40,26 +40,39 @@ class FacebookProfile < Profile
   end
 
   def friends
-    @friends= self.get_friends unless @friends
+    @friends= get_friends unless @friends
     @friends
-  end
+  end 
   
-  def get_friends
-    result= {}; threads= []
-    90.times do
-      t= Thread.new do
-        scrape_friends.each {|scraped_friend| result[scraped_friend.name]= scraped_friend unless result[scraped_friend.name]}
-      end
-      threads << t
+  def trust(friend)
+    result=0
+    a_friends= self.friends; b_friends= friend.friends
+    a_friends.each do |ak,av|
+      b_friends.each {|bk,bv| result += 1 if av.fbid == bv.fbid}
     end
-    threads.each {|t| t.join}
-    result
+    (100.0/self.friends.size*result)
   end
   
   # overwrites self attributes (dangerous)
   def get
     self.fbid, self.vanity, self.name, self.url = self.get_page.personal_info
     return self
+  end
+  
+  # validate: only if vanity is known / after #get()
+  def twitter
+    if self.vanity and not @twitter
+      url= "http://www.twitter.com/#{self.vanity}"
+      begin
+        m= WWW::Mechanize.new.get(url)
+        if m #and m.title.match(/#{self.name}/)
+          @twitter= url 
+        end
+      rescue
+        @twitter= nil
+      end
+    end
+    @twitter
   end
   
   # return a scraped FacebookPage object
@@ -69,7 +82,22 @@ class FacebookProfile < Profile
   end
   
   private
-
+  
+  # should return array
+  def get_friends
+    result= {}; threads= []
+    90.times do
+      t= Thread.new do
+        scrape_friends.each do |scraped_friend| 
+          result[scraped_friend.name]= scraped_friend unless result[scraped_friend.name]
+        end
+      end
+      threads << t
+    end
+    threads.each {|t| t.join}
+    result
+  end
+  
   def scrape_friends
     result= []
     self.get_page.friends_data.each do |u,i,v,n|
