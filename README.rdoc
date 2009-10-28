@@ -15,31 +15,52 @@ http://riggasconi.lighthouseapp.com
 
 == Requirements:
 Ruby 1.8.6
-Cucumber 0.4.0
+Rubygems 1.3.5
+Git 1.6.3.3
 Mechanize 0.9.3
+Cucumber 0.4.0
 
 == Test:
   $ cucumber
 
-== Example:
+== Newbies:
+  $ sudo gem install mechanize cucumber
+  $ git clone git://github.com/riggasconi/openfacebook.git
+  $ cd openfacebook/lib/
+  $ irb
+  irb(main):001:0> require './openfacebook.rb'
+
+== Examples:
+  #instantiate a new FacebookProfile object using a Facebook vanity name
   rigga= FacebookProfile.new(:vanity=>'riggasconi')
   rigga.get
   
+  # get attributes of the user
   rigga.fbid
   rigga.name
+  rigga.url
+  rigga.fbid
   
-  rigga.friends
+  # get the list of (almost all) friends
+  rigga.friends # takes a while
+  a_friend= rigga.friends[0]
+  a_foaf= rigga.friends[0].friends[0]
 
-  friend= rigga.friends[0]
-  friend.get
-  friend.name
+  # instantiate a FacebookProfile object using a facebook id
+  leo= FacebookProfile.new(:fbid=>'705859831')
+  leo.get
 
-  a_foaf= rigga.friends[0].friends[0].get
-  a_foaf.url
-  a_foaf.fbid
+  # get the affinity between two people (takes a while)
+  rigga.trust(leo)
+  leo.trust(leo)
+  jo= FacebookProfile.new :vanity=>'deadroxy'
+  jo.trust(rigga)
+  rigga.trust(jo)
 
-  ste= FacebookProfile.new(:fbid=>'713625649')
-  ste.get
+  # get the twitter url of the person, if any
+  rigga.twitter
+  jo.twitter
+  leo.twitter
 
 == Author
 
