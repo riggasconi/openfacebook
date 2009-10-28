@@ -38,56 +38,7 @@ class FacebookProfile < Profile
     self.vanity= hash[:vanity]
     self.name= hash[:name]
   end
-  
-  def trust(friend)
-    result=0
-    a_friends= self.friends
-    #puts a_friends.size
-    b_friends= friend.friends
-    #puts b_friends.size
-    a_friends.each do |ak,av|
-      b_friends.each do |bk,bv|
-        result += 1 if av.fbid == bv.fbid
-      end
-    end
-    #puts result
-    (100.0/self.friends.size*result)
-  end
-  
-  def twitter
-    tw_url= "http://www.twitter.com/#{self.vanity}"
-    m= WWW::Mechanize.new
-    result=nil
-    begin
-      m.get(tw_url)
-      if m.page
-        result= tw_url if m.page.title.match(/#{self.name}/)
-      else
-        result= nil
-      end
-    rescue
-      result= nil
-    end
-    result || false
-  end
-  
-  def all_twitter_friends
-    result= []
-    threads= []
-    self.friends.each do |friend|
-      t= Thread.new do
-        puts "chechking if #{friend.name} is on Twitter"
-        if friend.twitter
-          puts "Found! How cool :)"
-          result << friend.twitter
-        end
-      end#Thread
-      threads << t
-    end
-    threads.each {|t| t.join}
-    result.uniq
-  end
-  
+
   def friends
     @friends= self.get_friends unless @friends
     @friends
@@ -142,8 +93,6 @@ class FacebookPage
   def initialize(url)
     self.url= url
   end
-  
-
   
   def scraped
     m= WWW::Mechanize.new
