@@ -31,7 +31,7 @@ Cucumber 0.4.0
   irb(main):001:0> require './openfacebook.rb'
 
 == Examples:
-  #instantiate a new FacebookProfile object using a Facebook vanity name
+  #create a new FacebookProfile object using a Facebook vanity name
   rigga= FacebookProfile.new(:vanity=>'riggasconi')
   rigga.get
   
