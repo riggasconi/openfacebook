@@ -11,8 +11,8 @@ When /^I feed openfacebook with "([^\"]*)" as "([^\"]*)"$/ do |content, type|
   @profile= FacebookProfile.new(type.to_sym => content).get
 end
 
-Then /^I should get 8 random friends$/ do
-  @profile.friends.size.should == 8
+Then /^I should get some 200 friends$/ do
+  @profile.friends.size.should > 200
 end
 
 Then /^I should get "([^\"]*)" as fbid$/ do |arg1|
