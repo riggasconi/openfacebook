@@ -2,5 +2,5 @@
 # author: Sebastiano Scròfina (http://www.riggasconi.com)
 # this code is released under the Ruby License
 
-require 'facebook/page'
-require 'facebook/profile'
+require './lib/facebook/page.rb'
+require './lib/facebook/profile.rb'

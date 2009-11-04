@@ -37,4 +37,6 @@ Scenario: Failure test for "Get friends by facebook ID"
 	And I shouldn't get a vanity different from "riggasconi"
 	And I shouldn't get an url different from "http://www.facebook.com/riggasconi"
 	And I shouldn't get a name different from "Sebastiano Scròfina"
-		# add a user who joined a network
+	
+	
+	# to do: test a user who joined a network

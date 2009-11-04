@@ -7,6 +7,9 @@ $: << File.expand_path(File.dirname('get_friends_steps.rb') + "../../lib")
 
 require 'openfacebook'
 
+require 'rubygems'
+require 'rspec'
+
 When /^I feed openfacebook with "([^\"]*)" as "([^\"]*)"$/ do |content, type|
   @profile= FacebookProfile.new(type.to_sym => content).get
 end
