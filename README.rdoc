@@ -29,7 +29,7 @@ Rspec 1.2.9
   $ git clone git://github.com/riggasconi/openfacebook.git
   $ cd openfacebook/
   $ irb
-  irb(main):001:0> require './openfacebook.rb'
+  irb(main):001:0> require './lib/openfacebook.rb'
 
 == Examples:
   #create a new FacebookProfile object using a Facebook vanity name
@@ -44,8 +44,8 @@ Rspec 1.2.9
   
   # get a list of (some) friends
   rigga.friends # takes a while
-  a_friend= rigga.friends[0]
-  a_foaf= rigga.friends[0].friends[0]
+  friend= rigga.friends.map{|name,object|object}[0]
+  foaf= friend.friends.map{|name,object|object}[0]
 
   # create a FacebookProfile object using a facebook id
   leo= FacebookProfile.new(:fbid=>'705859831')
@@ -59,9 +59,9 @@ Rspec 1.2.9
   rigga.trust(jo)
 
   # get the twitter url of the person, if any
-  rigga.twitter
-  jo.twitter
-  leo.twitter
+  rigga.twitter # yep
+  jo.twitter # yep
+  leo.twitter # nope
 
 == Author
 
