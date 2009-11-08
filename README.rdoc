@@ -27,7 +27,7 @@ Rspec 1.2.9
 == Newbies:
   $ sudo gem install mechanize cucumber rspec
   $ git clone git://github.com/riggasconi/openfacebook.git
-  $ cd openfacebook/lib/
+  $ cd openfacebook/
   $ irb
   irb(main):001:0> require './openfacebook.rb'
 
