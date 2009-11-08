@@ -55,8 +55,10 @@ Rspec 1.2.9
   rigga.trust(leo)
   leo.trust(leo)
   jo= FacebookProfile.new :vanity=>'deadroxy'
+  pilu= FacebookProfile.new :vanity=>'pilu'
   jo.trust(rigga)
   rigga.trust(jo)
+  pilu.trust rigga
 
   # get the twitter url of the person, if any
   rigga.twitter # yep
